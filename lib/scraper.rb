@@ -3,16 +3,16 @@ require 'pry'
 
 class Scraper
   def self.scrape_index_page(index_url)
-    student_ary = []
+    student_array = []
     index_page = Nokogiri::HTML(open(index_url))
     index_page.css(".roster-cards-container .card-text-container").each_with_index do |student, a_tag_num|
       hash = {}
       hash[:location] = student.css("p.student-location").text
       hash[:name] = student.css("h4.student-name").text
       hash[:profile_url] = index_page.css("a")[a_tag_num+1]["href"]
-      student_ary << hash
+      student_array << hash
     end
-    student_ary
+    student_array
   end
 
   def self.scrape_profile_page(profile_url)
